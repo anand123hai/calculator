@@ -14,7 +14,17 @@ pipeline {
             stage("Unit test") {
                 steps {
                     bat "mvn test"
-               }
+                }
+            }
+            stage("Code coverage-JaCoCo") {
+                steps {
+                    bat "mvn install"
+                    publishHTML (target: [
+                        reportDir: 'site/jacoco',
+                        reportFiles: 'index.html',
+                        reportName: "JaCoCo Report"
+                        ])
+                }
             }
         }
     }
