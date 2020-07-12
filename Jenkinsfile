@@ -16,15 +16,10 @@ pipeline {
                     bat "mvn test"
                 }
             }
-            stage("Code coverage-JaCoCo") {
-                steps {
-                    bat "mvn install"
-                    publishHTML (target: [
-                        reportDir: 'site/jacoco',
-                        reportFiles: 'index.html',
-                        reportName: "JaCoCo Report"
-                        ])
-                }
+            stage("Docker build") {
+                 steps {
+                     sh "docker build -t anand123hai/calculator ."
+                 }
             }
         }
     }
